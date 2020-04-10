@@ -16,5 +16,20 @@ namespace JsonApis.Controllers
 
             return jsReader.GetSerializedJSON<Dictionary<string, string>>("http://country.io/continent.json");
         }
+
+        [Route("file")]
+        [HttpGet]
+        public ActionResult<Dictionary<string, string>> GetByUrl([FromQuery(Name = "url")] string url,[FromServices] IJsonReader jsReader)
+        {
+
+            return jsReader.GetSerializedJSON<Dictionary<string, string>>(url);
+        }
+
+        [HttpGet("{name}")]
+        public ActionResult<Dictionary<string, string>> Get(string name, [FromServices] IJsonReader jsReader)
+        {
+
+            return jsReader.GetSerializedJSON<Dictionary<string, string>>($"http://country.io/{name}.json");
+        }
     }
 }
